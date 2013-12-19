@@ -23,11 +23,11 @@ class Modules extends \ICanBoogie\Modules
 	 * from the `enabled_modules` persistant variable and the value of the {@link T_REQUIRED}
 	 * tag, which forces some modules to always be enabled.
 	 */
-	protected function get_index()
+	protected function lazy_get_index()
 	{
 		global $core;
 
-		$index = parent::get_index();
+		$index = parent::lazy_get_index();
 		$enableds = $core->vars['enabled_modules'];
 
 		if ($enableds && is_array($enableds))

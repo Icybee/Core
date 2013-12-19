@@ -34,7 +34,7 @@ class Module extends \ICanBoogie\Module
 	 *
 	 * @return array[string]array
 	 */
-	protected function get_views()
+	protected function lazy_get_views()
 	{
 		return array();
 	}

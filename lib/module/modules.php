@@ -14,7 +14,7 @@ namespace Icybee;
 /**
  * Accessor class for the modules of the framework.
  */
-class Modules extends \ICanBoogie\Modules
+class Modules extends \ICanBoogie\Module\Modules
 {
 	/**
 	 * Disables selected modules.

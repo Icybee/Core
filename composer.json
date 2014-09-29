@@ -21,7 +21,8 @@
 	"require": {
 		"php": ">=5.4.0",
 		"icanboogie/common": "*",
-		"icanboogie/prototype": "2.x"
+		"icanboogie/prototype": "2.x",
+		"icanboogie/module": "2.x"
 	},
 	"autoload": {
 		"classmap": [ "lib/" ]

@@ -11,6 +11,7 @@
 
 namespace Icybee\ActiveRecord\Model;
 
+use ICanBoogie\ActiveRecord\ModelCollection;
 use ICanBoogie\ActiveRecord\Query;
 use ICanBoogie\ActiveRecord\RecordNotFound;
 
@@ -25,7 +26,12 @@ class Constructor extends \ICanBoogie\ActiveRecord\Model
 
 	protected $constructor;
 
-	public function __construct(array $attributes)
+	/**
+	 * @inheritdoc
+	 *
+	 * @throws \Exception if {@link T_CONSTRUCTOR} is not defined.
+	 */
+	public function __construct(ModelCollection $models, array $attributes)
 	{
 		if (empty($attributes[self::T_CONSTRUCTOR]))
 		{
@@ -34,13 +40,15 @@ class Constructor extends \ICanBoogie\ActiveRecord\Model
 
 		$this->constructor = $attributes[self::T_CONSTRUCTOR];
 
-		parent::__construct($attributes);
+		parent::__construct($models, $attributes);
 	}
 
 	/**
+	 * @inheritdoc
+	 *
 	 * Overwrites the `constructor` property of new records.
 	 */
-	public function save(array $properties, $key=null, array $options=array())
+	public function save(array $properties, $key = null, array $options = [])
 	{
 		if (!$key && empty($properties[self::T_CONSTRUCTOR]))
 		{
@@ -51,6 +59,8 @@ class Constructor extends \ICanBoogie\ActiveRecord\Model
 	}
 
 	/**
+	 * @inheritdoc
+	 *
 	 * Makes sure that records are found using their true constructor.
 	 */
 	public function find($key)

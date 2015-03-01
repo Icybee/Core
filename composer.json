@@ -20,9 +20,9 @@
 	"minimum-stability": "dev",
 	"require": {
 		"php": ">=5.4.0",
-		"icanboogie/common": "*",
-		"icanboogie/prototype": "2.x",
-		"icanboogie/module": "2.x"
+		"icanboogie/common": "~1.2.2",
+		"icanboogie/prototype": "~2.2.0",
+		"icanboogie/module": "~2.2.0"
 	},
 	"autoload": {
 		"classmap": [ "lib/" ]

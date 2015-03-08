@@ -11,6 +11,7 @@
 
 namespace Icybee\ActiveRecord\Model;
 
+use ICanBoogie\ActiveRecord\Model;
 use ICanBoogie\ActiveRecord\ModelCollection;
 use ICanBoogie\ActiveRecord\Query;
 use ICanBoogie\ActiveRecord\RecordNotFound;
@@ -20,25 +21,25 @@ use ICanBoogie\ActiveRecord\RecordNotFound;
  * It provides support for the `constructor` property whether it is for saving records or
  * filtering them through the `own` scope.
  */
-class Constructor extends \ICanBoogie\ActiveRecord\Model
+class Constructor extends Model
 {
-	const T_CONSTRUCTOR = 'constructor';
+	const CONSTRUCTOR = 'constructor';
 
 	protected $constructor;
 
 	/**
 	 * @inheritdoc
 	 *
-	 * @throws \Exception if {@link T_CONSTRUCTOR} is not defined.
+	 * @throws \Exception if {@link CONSTRUCTOR} is not defined.
 	 */
 	public function __construct(ModelCollection $models, array $attributes)
 	{
-		if (empty($attributes[self::T_CONSTRUCTOR]))
+		if (empty($attributes[self::CONSTRUCTOR]))
 		{
-			throw new \Exception('The T_CONSTRUCTOR tag is required');
+			throw new \Exception('The CONSTRUCTOR tag is required');
 		}
 
-		$this->constructor = $attributes[self::T_CONSTRUCTOR];
+		$this->constructor = $attributes[self::CONSTRUCTOR];
 
 		parent::__construct($models, $attributes);
 	}
@@ -50,9 +51,9 @@ class Constructor extends \ICanBoogie\ActiveRecord\Model
 	 */
 	public function save(array $properties, $key = null, array $options = [])
 	{
-		if (!$key && empty($properties[self::T_CONSTRUCTOR]))
+		if (!$key && empty($properties[self::CONSTRUCTOR]))
 		{
-			$properties[self::T_CONSTRUCTOR] = $this->constructor;
+			$properties[self::CONSTRUCTOR] = $this->constructor;
 		}
 
 		return parent::save($properties, $key, $options);

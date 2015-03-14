@@ -41,8 +41,6 @@ class Module extends \ICanBoogie\Module
 
 	public function getBlock($name)
 	{
-		global $core;
-
 		$args = func_get_args();
 
 		$class_name = $this->resolve_block_class($name);
@@ -116,9 +114,7 @@ class Module extends \ICanBoogie\Module
 	 */
 	public function lock_entry($key, &$lock=null)
 	{
-		global $core;
-
-		$user_id = $core->user_id;
+		$user_id = $this->app->user_id;
 
 		if (!$user_id)
 		{
@@ -133,7 +129,7 @@ class Module extends \ICanBoogie\Module
 		#
 		# is the node already locked by another user ?
 		#
-		$registry = $core->registry;
+		$registry = $this->app->registry;
 
 		$lock_name = $this->create_activerecord_lock_name($key);
 		$lock = json_decode($registry[$lock_name], true);
@@ -175,9 +171,7 @@ class Module extends \ICanBoogie\Module
 
 	public function unlock_entry($key)
 	{
-		global $core;
-
-		$registry = $core->registry;
+		$registry = $this->app->registry;
 
 		$lock_name = $this->create_activerecord_lock_name($key);
 		$lock = json_decode($registry[$lock_name], true);
@@ -187,7 +181,7 @@ class Module extends \ICanBoogie\Module
 			return;
 		}
 
-		if ($lock['uid'] != $core->user_id)
+		if ($lock['uid'] != $this->app->user_id)
 		{
 			return false;
 		}

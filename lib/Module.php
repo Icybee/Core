@@ -13,6 +13,7 @@ namespace Icybee;
 
 use ICanBoogie\AuthenticationRequired;
 use ICanBoogie\I18n;
+use ICanBoogie\Module\Descriptor;
 
 /**
  * Extends the Module class with the following features:
@@ -32,11 +33,11 @@ class Module extends \ICanBoogie\Module
 	 * - (string) title: Title of the view. The title of the view is localized use the
 	 * "<module_flat_id>.view" scope.
 	 *
-	 * @return array[string]array
+	 * @return array
 	 */
 	protected function lazy_get_views()
 	{
-		return array();
+		return [];
 	}
 
 	public function getBlock($name)
@@ -54,7 +55,7 @@ class Module extends \ICanBoogie\Module
 
 			try
 			{
-				$block = new $class_name($this, array(), $args);
+				$block = new $class_name($this, [], $args);
 
 // 				$rendered_block = $block->render();
 			}
@@ -78,7 +79,7 @@ class Module extends \ICanBoogie\Module
 
 // 		\ICanBoogie\log_info("Block class not found for <q>$name</q> falling to callbacks.");
 
-		return call_user_func_array((PHP_MAJOR_VERSION > 5 || (PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION > 2)) ? 'parent::' . __FUNCTION__ : array($this, 'parent::' . __FUNCTION__), $args);
+		return call_user_func_array('parent::' . __FUNCTION__, $args);
 	}
 
 	protected function resolve_block_class($name)
@@ -88,7 +89,7 @@ class Module extends \ICanBoogie\Module
 
 		while ($module)
 		{
-			$try = $module->descriptor[self::T_NAMESPACE] . '\\' . $class_name;
+			$try = $module->descriptor[Descriptor::NS] . '\\' . $class_name;
 
 			if (class_exists($try, true))
 			{
@@ -108,17 +109,19 @@ class Module extends \ICanBoogie\Module
 	 * Locks an activerecord.
 	 *
 	 * @param int $key
+	 * @param null $lock
 	 *
-	 * @throws \Exception
 	 * @return array|false
+	 *
+	 * @throws AuthenticationRequired
 	 */
-	public function lock_entry($key, &$lock=null)
+	public function lock_entry($key, &$lock = null)
 	{
 		$user_id = $this->app->user_id;
 
 		if (!$user_id)
 		{
-			throw new AuthenticationRequired();
+			throw new AuthenticationRequired;
 		}
 
 		if (!$key)
@@ -158,11 +161,12 @@ class Module extends \ICanBoogie\Module
 			}
 		}
 
-		$lock = array
-		(
+		$lock = [
+
 			'uid' => $lock_uid,
 			'until' => $until
-		);
+
+		];
 
 		$registry[$lock_name] = json_encode($lock);
 
@@ -178,7 +182,7 @@ class Module extends \ICanBoogie\Module
 
 		if (!$lock)
 		{
-			return;
+			return null;
 		}
 
 		if ($lock['uid'] != $this->app->user_id)

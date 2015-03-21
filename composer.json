@@ -17,12 +17,10 @@
 		"issues": "https://github.com/Icybee/Core/issues",
 		"source": "https://github.com/Icybee/Core"
 	},
-	"minimum-stability": "dev",
 	"require": {
-		"php": ">=5.4.0",
-		"icanboogie/common": "~1.2.2",
-		"icanboogie/prototype": "~2.2.0",
-		"icanboogie/module": "~2.2.0"
+		"php": ">=5.5.0",
+		"icanboogie/module": "~2.2.0",
+		"icanboogie/activerecord": "~2.2.0"
 	},
 	"autoload": {
 		"classmap": [ "lib/" ]

@@ -9,8 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Icybee\ActiveRecord\Model;
+namespace Icybee;
 
+use ICanBoogie\ActiveRecord;
 use ICanBoogie\ActiveRecord\Model;
 use ICanBoogie\ActiveRecord\ModelCollection;
 use ICanBoogie\ActiveRecord\Query;
@@ -21,7 +22,7 @@ use ICanBoogie\ActiveRecord\RecordNotFound;
  * It provides support for the `constructor` property whether it is for saving records or
  * filtering them through the `own` scope.
  */
-class Constructor extends Model
+abstract class ConstructorModel extends Model
 {
 	const CONSTRUCTOR = 'constructor';
 
@@ -68,9 +69,9 @@ class Constructor extends Model
 	{
 		$record = call_user_func_array('parent::' . __FUNCTION__, func_get_args());
 
-		if ($record instanceof \ICanBoogie\ActiveRecord)
+		if ($record instanceof ActiveRecord)
 		{
-			$record_model = \ICanBoogie\ActiveRecord\get_model($record->constructor);
+			$record_model = $this->models[$record->constructor];
 
 			if ($this !== $record_model)
 			{
@@ -99,7 +100,7 @@ class Constructor extends Model
 	{
 		if (!$keys)
 		{
-			return array();
+			return [];
 		}
 
 		$records = array_combine($keys, array_fill(0, count($keys), null));
@@ -107,14 +108,14 @@ class Constructor extends Model
 
 		$constructors = $this
 		->select('constructor, {primary}')
-		->where(array('{primary}' => $keys))
+		->where([ '{primary}' => $keys ])
 		->all(\PDO::FETCH_COLUMN | \PDO::FETCH_GROUP);
 
 		foreach ($constructors as $constructor => $constructor_keys)
 		{
 			try
 			{
-				$constructor_records = \ICanBoogie\ActiveRecord\get_model($constructor)->find($constructor_keys);
+				$constructor_records = $this->models[$constructor]->find($constructor_keys);
 
 				foreach ($constructor_records as $key => $record)
 				{

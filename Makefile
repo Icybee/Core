@@ -1,7 +1,7 @@
 # customization
 
 PACKAGE_NAME = Icybee/Core
-PACKAGE_VERSION = 2.1.0
+PACKAGE_VERSION = 2.1.x-dev
 
 # do not edit the following lines
 

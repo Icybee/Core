@@ -11,7 +11,8 @@
 
 namespace Icybee;
 
-use ICanBoogie\AuthenticationRequired;
+use ICanBoogie\HTTP\AuthenticationRequired;
+use ICanBoogie\HTTP\SecurityError;
 use ICanBoogie\I18n;
 use ICanBoogie\Module\Descriptor;
 
@@ -20,6 +21,8 @@ use ICanBoogie\Module\Descriptor;
  *
  * - Special handling for the 'edit', 'new' and 'configure' blocks.
  * - Inter-users edit lock on records.
+ *
+ * @property-read \ICanBoogie\Core|\Icybee\Binding\CoreBindings $app
  */
 class Module extends \ICanBoogie\Module
 {
@@ -59,7 +62,7 @@ class Module extends \ICanBoogie\Module
 
 // 				$rendered_block = $block->render();
 			}
-			catch (\ICanBoogie\SecurityException $e)
+			catch (SecurityError $e)
 			{
 				I18n::pop_scope();
 				I18n::pop_scope();

@@ -28,21 +28,6 @@ class Module extends \ICanBoogie\Module
 {
 	const OPERATION_CONFIG = 'config';
 
-	/**
-	 * Returns the views defined by the module.
-	 *
-	 * Each _key/value_ pair defines a view, _key_ is its type, _value_ its definition:
-	 *
-	 * - (string) title: Title of the view. The title of the view is localized use the
-	 * "<module_flat_id>.view" scope.
-	 *
-	 * @return array
-	 */
-	protected function lazy_get_views()
-	{
-		return [];
-	}
-
 	public function getBlock($name)
 	{
 		$args = func_get_args();

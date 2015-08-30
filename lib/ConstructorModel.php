@@ -16,7 +16,7 @@ use ICanBoogie\ActiveRecord\Model;
 use ICanBoogie\ActiveRecord\ModelCollection;
 use ICanBoogie\ActiveRecord\Query;
 use ICanBoogie\ActiveRecord\RecordNotFound;
-use Icybee\Binding\ObjectBindings;
+use Icybee\Binding\PrototypedBindings;
 
 /**
  * This is the super class for all models using the _constructor_ model (currently "nodes" and "users").
@@ -25,7 +25,7 @@ use Icybee\Binding\ObjectBindings;
  */
 abstract class ConstructorModel extends Model
 {
-	use ObjectBindings;
+	use PrototypedBindings;
 
 	const CONSTRUCTOR = 'constructor';
 

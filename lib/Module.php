@@ -72,20 +72,11 @@ class Module extends \ICanBoogie\Module
 
 	protected function resolve_block_class($name)
 	{
-		$module = $this;
-		$class_name = \ICanBoogie\camelize(\ICanBoogie\underscore($name)) . 'Block';
+		$class_name = 'Block\\' . \ICanBoogie\camelize(\ICanBoogie\underscore($name)) . 'Block';
 
-		while ($module)
-		{
-			$try = $module->descriptor[Descriptor::NS] . '\\' . $class_name;
+		$tried = [];
 
-			if (class_exists($try, true))
-			{
-				return $try;
-			}
-
-			$module = $module->parent;
-		}
+		return $this->collection->resolve_classname($class_name, $this, $tried);
 	}
 
 	private function create_activerecord_lock_name($key)

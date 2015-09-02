@@ -10,6 +10,7 @@ namespace Icybee\Binding\Core;
 trait CoreBindings
 {
 	use \ICanBoogie\Module\CoreBindings;
+	use \ICanBoogie\Binding\Routing\CoreBindings;
 	use \ICanBoogie\Binding\ActiveRecord\CoreBindings;
 	use \ICanBoogie\Binding\CLDR\CoreBindings;
 	use \ICanBoogie\Binding\I18n\CoreBindings;

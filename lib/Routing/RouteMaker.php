@@ -13,8 +13,16 @@ namespace Icybee\Routing;
 
 use ICanBoogie\HTTP\Request;
 
+/**
+ * Makes admin route definitions.
+ */
 class RouteMaker extends \ICanBoogie\Routing\RouteMaker
 {
+	const ACTION_CONFIRM_DELETE = 'confirm-delete';
+	const ACTION_CONFIG = 'config';
+
+	const ADMIN_PREFIX = 'admin:';
+
 	static public function admin($module_id, $controller, array $options = [])
 	{
 		$options = static::normalize_options($options);
@@ -25,7 +33,7 @@ class RouteMaker extends \ICanBoogie\Routing\RouteMaker
 
 		foreach (static::actions($module_id, $controller, $actions, $options) as $id => $route)
 		{
-			$as = 'admin:' . $route['as'];
+			$as = self::ADMIN_PREFIX . $route['as'];
 
 			$route['pattern'] = '/admin' . $route['pattern'];
 			$route['as'] = $as;
@@ -41,8 +49,8 @@ class RouteMaker extends \ICanBoogie\Routing\RouteMaker
 	{
 		return array_merge(static::get_resource_actions(), [
 
-			'confirm-delete' => [ '/{name}/{id}/delete', Request::METHOD_GET ],
-			'config' => [ '/{name}/config', Request::METHOD_GET ]
+			self::ACTION_CONFIRM_DELETE => [ '/{name}/{id}/delete', Request::METHOD_GET ],
+			self::ACTION_CONFIG => [ '/{name}/config', Request::METHOD_GET ]
 
 		]);
 	}

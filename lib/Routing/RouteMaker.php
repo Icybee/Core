@@ -49,6 +49,13 @@ class RouteMaker extends \ICanBoogie\Routing\RouteMaker
 	{
 		return array_merge(static::get_resource_actions(), [
 
+			#
+			# FIXME: "POST" is added to NEW and EDIT methods because "save" operation is currently
+			# posted to the same route. We'll be able to remove this once the operation
+			# controller has been revised.
+			#
+			self::ACTION_NEW   => [ '/{name}/new', [ Request::METHOD_GET, Request::METHOD_POST ] ],
+			self::ACTION_EDIT   => [ '/{name}/{id}/edit', [ Request::METHOD_GET, Request::METHOD_POST ] ],
 			self::ACTION_CONFIRM_DELETE => [ '/{name}/{id}/delete', Request::METHOD_GET ],
 			self::ACTION_CONFIG => [ '/{name}/config', Request::METHOD_GET ]
 

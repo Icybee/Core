@@ -12,6 +12,7 @@
 namespace Icybee\Routing;
 
 use ICanBoogie\HTTP\Request;
+use ICanBoogie\Module\ModuleRouteDefinition as RouteDefinition;
 
 /**
  * Makes admin route definitions.
@@ -31,15 +32,15 @@ class RouteMaker extends \ICanBoogie\Routing\RouteMaker
 
 		$routes = [];
 
-		foreach (static::actions($module_id, $controller, $actions, $options) as $id => $route)
+		foreach (static::actions($module_id, $controller, $actions, $options) as $route)
 		{
-			$as = self::ADMIN_PREFIX . $route['as'];
+			$id = self::ADMIN_PREFIX . $route[RouteDefinition::ID];
 
-			$route['pattern'] = '/admin' . $route['pattern'];
-			$route['as'] = $as;
-			$route['module'] = $module_id;
+			$route[RouteDefinition::ID] = $id;
+			$route[RouteDefinition::PATTERN] = '/admin' . $route[RouteDefinition::PATTERN];
+			$route[RouteDefinition::MODULE] = $module_id;
 
-			$routes[$as] = $route;
+			$routes[$id] = $route;
 		}
 
 		return $routes;
@@ -54,10 +55,10 @@ class RouteMaker extends \ICanBoogie\Routing\RouteMaker
 			# posted to the same route. We'll be able to remove this once the operation
 			# controller has been revised.
 			#
-			self::ACTION_NEW   => [ '/{name}/new', [ Request::METHOD_GET, Request::METHOD_POST ] ],
-			self::ACTION_EDIT   => [ '/{name}/{id}/edit', [ Request::METHOD_GET, Request::METHOD_POST ] ],
+			self::ACTION_NEW            => [ '/{name}/new', [ Request::METHOD_GET, Request::METHOD_POST ] ],
+			self::ACTION_EDIT           => [ '/{name}/{id}/edit', [ Request::METHOD_GET, Request::METHOD_POST ] ],
 			self::ACTION_CONFIRM_DELETE => [ '/{name}/{id}/delete', Request::METHOD_GET ],
-			self::ACTION_CONFIG => [ '/{name}/config', Request::METHOD_GET ]
+			self::ACTION_CONFIG         => [ '/{name}/config', Request::METHOD_GET ]
 
 		]);
 	}

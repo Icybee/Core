@@ -22,7 +22,7 @@
 		"php": ">=5.5.0",
 		"icanboogie/module": "^3.0.0",
 		"icanboogie/icanboogie": "^3.0.0",
-		"icanboogie/bind-activerecord": "^1.0.0",
+		"icanboogie/bind-activerecord": "^2.3.0",
 		"icanboogie/bind-cldr": "^1.0.0",
 		"icanboogie/operation": "^3.0.0",
 		"icanboogie/i18n": "^2.0.8"

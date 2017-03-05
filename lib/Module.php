@@ -14,15 +14,12 @@ namespace Icybee;
 use ICanBoogie\HTTP\AuthenticationRequired;
 use ICanBoogie\HTTP\SecurityError;
 use ICanBoogie\I18n;
-use ICanBoogie\Module\Descriptor;
 
 /**
  * Extends the Module class with the following features:
  *
  * - Special handling for the 'edit', 'new' and 'configure' blocks.
  * - Inter-users edit lock on records.
- *
- * @property-read \ICanBoogie\Core|\Icybee\Binding\CoreBindings $app
  */
 class Module extends \ICanBoogie\Module
 {

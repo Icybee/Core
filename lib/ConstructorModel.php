@@ -16,7 +16,7 @@ use ICanBoogie\ActiveRecord\Model;
 use ICanBoogie\ActiveRecord\ModelCollection;
 use ICanBoogie\ActiveRecord\Query;
 use ICanBoogie\ActiveRecord\RecordNotFound;
-use Icybee\Binding\Core\PrototypedBindings;
+use ICanBoogie\Binding\PrototypedBindings;
 
 /**
  * This is the super class for all models using the _constructor_ model (currently "nodes" and "users").
@@ -147,7 +147,7 @@ abstract class ConstructorModel extends Model
 			{
 				throw new RecordNotFound
 				(
-					"Records " . implode(', ', array_keys($missing)) . " do not exists.", $records
+					"Records " . implode(', ', array_keys($missing)) . " do not exist.", $records
 				);
 			}
 			else
@@ -155,10 +155,7 @@ abstract class ConstructorModel extends Model
 				$key = array_keys($missing);
 				$key = array_shift($key);
 
-				throw new RecordNotFound
-				(
-					"Record <q>{$key}</q> does not exists.", $records
-				);
+				throw new RecordNotFound("Record `$key` does not exist.", $records);
 			}
 		}
 

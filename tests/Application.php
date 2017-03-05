@@ -2,9 +2,7 @@
 
 namespace ICanBoogie;
 
-use Icybee\Binding\Core\ApplicationBindings;
-
-class Application extends Core
+class Application extends \Icybee\Application
 {
-	use ApplicationBindings;
+
 }

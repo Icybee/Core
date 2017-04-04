@@ -11,9 +11,9 @@
 
 namespace Icybee;
 
-use ICanBoogie\Core;
+use ICanBoogie\ApplicationAbstract;
 
-abstract class Application extends Core
+abstract class Application extends ApplicationAbstract
 {
 	use Binding\ApplicationBindings;
 }

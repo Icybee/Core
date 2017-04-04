@@ -12,7 +12,7 @@
 namespace Icybee\Binding;
 
 /**
- * {@link \ICanBoogie\Core} prototype bindings.
+ * {@link \ICanBoogie\Application} prototype bindings.
  *
  * This trait is really a collection of bindings defined by the dependencies.
  */

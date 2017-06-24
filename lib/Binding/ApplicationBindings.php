@@ -18,7 +18,7 @@ namespace Icybee\Binding;
  */
 trait ApplicationBindings
 {
-	use \ICanBoogie\Module\ApplicationBindings;
+	use \ICanBoogie\Binding\Module\ApplicationBindings;
 	use \ICanBoogie\Binding\Routing\ApplicationBindings;
 	use \ICanBoogie\Binding\ActiveRecord\ApplicationBindings;
 	use \ICanBoogie\Binding\CLDR\ApplicationBindings;

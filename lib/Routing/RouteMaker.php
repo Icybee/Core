@@ -12,19 +12,20 @@
 namespace Icybee\Routing;
 
 use ICanBoogie\HTTP\Request;
-use ICanBoogie\Module\ModuleRouteDefinition as RouteDefinition;
+use ICanBoogie\Routing\Route;
+use ICanBoogie\Routing\RouteMaker as Make;
 
 /**
  * Makes admin route definitions.
  */
 class RouteMaker extends \ICanBoogie\Routing\RouteMaker
 {
-	const ACTION_CONFIRM_DELETE = 'confirm-delete';
-	const ACTION_CONFIG = 'config';
+	public const ACTION_CONFIRM_DELETE = 'confirm-delete';
+	public const ACTION_CONFIG = 'config';
 
-	const ADMIN_PREFIX = 'admin:';
+	public const ADMIN_PREFIX = 'admin:';
 
-	static public function admin($module_id, $controller, array $options = [])
+	public static function admin($module_id, $controller, array $options = [])
 	{
 		$options = static::normalize_options($options);
 		$actions = array_merge(static::get_admin_actions(), $options['actions']);
@@ -34,19 +35,19 @@ class RouteMaker extends \ICanBoogie\Routing\RouteMaker
 
 		foreach (static::actions($module_id, $controller, $actions, $options) as $route)
 		{
-			$id = self::ADMIN_PREFIX . $route[RouteDefinition::ID];
+			$id = self::ADMIN_PREFIX . $route->id;
 
-			$route[RouteDefinition::ID] = $id;
-			$route[RouteDefinition::PATTERN] = '/admin' . $route[RouteDefinition::PATTERN];
-			$route[RouteDefinition::MODULE] = $module_id;
+//			$route[RouteDefinition::ID] = $id;
+//			$route[RouteDefinition::PATTERN] = '/admin' . $route[RouteDefinition::PATTERN];
+//			$route[RouteDefinition::MODULE] = $module_id;
 
-			$routes[$id] = $route;
+			$routes[$id] = new Route(pattern: '/admin' . $route->pattern, action: 'admin:' . $route->action);
 		}
 
 		return $routes;
 	}
 
-	static protected function get_admin_actions()
+	private static function get_admin_actions()
 	{
 		return array_merge(static::get_resource_actions(), [
 

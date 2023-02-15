@@ -70,7 +70,7 @@ abstract class ConstructorModel extends Model
 	 */
 	public function find($key)
 	{
-		$record = call_user_func_array('parent::' . __FUNCTION__, func_get_args());
+		$record = parent::find(...func_get_args());
 
 		if ($record instanceof ActiveRecord)
 		{
